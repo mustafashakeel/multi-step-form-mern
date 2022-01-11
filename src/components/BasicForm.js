@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form'
 
 //  Create a form 
 // Email & password as inputs 
@@ -8,28 +9,26 @@ import React, { useState } from 'react';
 
 
 const BasicForm = () => {
-    const [state, setState] = useState({ email: "", password: "" });
 
-    const handleInputChange = (event) => {
-        setState(
-            { [event.target.name]: event.target.value }
-        );
-
-    };
-    const handleSubmit = (event) => {
+    // const { register, handleSubmit, error } = useForm(); 
+    const { register, formState: { errors }, handleSubmit } = useForm();
 
 
-        console.log(" submit ", state);
+
+    const handleSubmitOne = (data) => {
 
 
-        event.preventDefault();
+        console.log(" data  ", data);
+
+
+
 
 
 
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(handleSubmitOne)}>
             <div className='row'>
                 <div className='col-sm'>
                     <h4>Basic Form</h4>
@@ -38,11 +37,14 @@ const BasicForm = () => {
             <div className="row">
                 <div className='col-sm'>
                     <label htmlFor='email'>Email</label>
-                    <input type="text" id="email" name="email" className='form-control' onChange={handleInputChange} />
+                    <input type="text" id="email" name="email" className='form-control' {...register("email", { required: true, maxLength: 20 })} />
+                    {errors.email?.type === 'required' && "First name is required"}
+
                 </div>
                 <div className='col-sm'>
                     <label htmlFor='password'>Password</label>
-                    <input type="text" id="password" name="password" className='form-control' onChange={handleInputChange} />
+                    <input type="text" id="password" name="password" className='form-control' {...register("password", { required: true, maxLength: 20 })} />
+                    {errors.password?.type === 'required' && "First name is required"}
                 </div>
                 <div className='col-sm'>
                     <button type="submit" className='btn btn-primary mt-3'>CreateUser</button>
