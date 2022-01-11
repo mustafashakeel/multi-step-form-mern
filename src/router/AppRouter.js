@@ -11,7 +11,7 @@ const AppRouter = () => (
         <div className="container">
             <Header />
             <Routes>
-                <Route component={FirstStep} path="/" exact={true} />
+                <Route element={<FirstStep />} path="/" exact={true} />
             </Routes>
         </div>
     </BrowserRouter>
